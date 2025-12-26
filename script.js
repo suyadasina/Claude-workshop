@@ -1,5 +1,6 @@
 const holes = document.querySelectorAll('.hole');
 const scoreBoard = document.querySelector('.score');
+const highScoreBoard = document.querySelector('.high-score');
 const timeLeftDisplay = document.querySelector('.time-left');
 const moles = document.querySelectorAll('.mole');
 const startBtn = document.querySelector('#start-btn');
@@ -8,6 +9,9 @@ let timeUp = false;
 let score = 0;
 let countdown;
 let gameTime = 30; // seconds
+let highScore = localStorage.getItem('whacAMoleHighScore') || 0;
+
+highScoreBoard.textContent = highScore;
 
 function randomTime(min, max) {
     return Math.round(Math.random() * (max - min) + min);
@@ -50,9 +54,18 @@ function startGame() {
             clearInterval(countdown);
             timeUp = true;
             startBtn.disabled = false;
+            checkHighScore();
             alert('Game Over! Your score: ' + score);
         }
     }, 1000);
+}
+
+function checkHighScore() {
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('whacAMoleHighScore', highScore);
+        highScoreBoard.textContent = highScore;
+    }
 }
 
 function bonk(e) {
