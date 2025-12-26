@@ -278,3 +278,10 @@ EOF
 **หมายเหตุเรื่องโซนเวลา:**
 *   **โซนเวลาหลัก: GMT+7 (เวลาประเทศไทย)**
 *   ให้แสดงเวลา GMT+7 เป็นอันดับแรกเสมอ
+
+---
+
+## 📝 Latest Lessons Learned (บทเรียนล่าสุด)
+*   **Cloud Persistence:** Always use `nohup` for background servers in cloud environments to prevent session timeout disconnects.
+*   **Zero-Dependency Assets:** SVG Data URIs in CSS are ideal for small games to ensure they remain portable and self-contained.
+*   **Bilingual Docs:** Structuring documentation with English and Thai side-by-side (or in sequential sections) improves accessibility for diverse teams.
