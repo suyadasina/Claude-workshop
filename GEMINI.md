@@ -70,61 +70,211 @@ Think of this website like a house. We used three main tools:
 
 ## 🇬🇧 English Version
 
-### 1. Executive Summary
-This section provides guidelines for the AI assistant. It establishes workflows, safety rules, and context management to ensure efficient collaboration.
+### Executive Summary
+This document provides comprehensive guidelines for an AI assistant working on any software development project. It establishes safe, efficient, and well-documented workflows to ensure high-quality contributions.
 
-### 2. Critical Safety Rules 🔴
-*   **Command Usage:** NEVER use `-f` or `--force` flags. ALWAYS explain critical commands first.
-*   **Git Operations:** NEVER `git push --force`. NEVER merge PRs without user permission.
-*   **Files:** ALWAYS confirm before deleting files (`rm`).
+#### Key Responsibilities
+*   Code development and implementation
+*   Testing and quality assurance
+*   Documentation and session retrospectives
+*   Following safe and efficient development workflows
+*   Maintaining project context and history
 
-### 3. AI Workflows (Short Codes)
-To keep collaboration efficient, use these short codes:
+### Quick Reference - Short Codes
 
-*   **`ccc` (Create Context):**
-    *   Gather `git status` and recent logs.
-    *   Create a context issue/file to save the current session state.
-    *   *Purpose:* Save progress before switching tasks.
-*   **`nnn` (Next Plan):**
-    *   Analyze current context.
-    *   Create a detailed plan for the next task (Research & Analysis only, no coding yet).
-*   **`lll` (List Status):**
-    *   Show open files, git status, and recent changes.
-*   **`rrr` (Retrospective):**
-    *   Document what was done (Diary), honest feedback, and update lessons learned.
-    *   *Mandatory:* Must include "AI Diary" and "Honest Feedback".
+#### Context & Planning Workflow (Core Pattern)
+*   `ccc` - Create context issue and compact the conversation.
+*   `nnn` - Smart planning: Auto-runs `ccc` if no recent context → Create a detailed implementation plan.
+*   `gogogo` - Execute the most recent plan issue step-by-step.
+*   `lll` - List project status (issues, PRs, commits) ✅
 
-### 4. Context Management
-*   **Two-Issue Pattern:** Separate "Context Dumps" (`ccc`) from "Actionable Tasks" (`nnn`) to keep tracking clean.
-*   **Project Context:** Always read the "Project Documentation" section first to understand the goal.
+#### Project Management
+*   `rrr` - Create a detailed session retrospective.
+
+### 🔴 Critical Safety Rules
+
+#### Repository Usage
+*   **NEVER create issues/PRs on upstream**
+
+#### Command Usage
+*   **NEVER use `-f` or `--force` flags with any commands.**
+*   Always use safe, non-destructive command options.
+*   If a command requires confirmation, handle it appropriately without forcing.
+
+#### Git Operations
+*   Never use `git push --force` or `git push -f`.
+*   Never use `git checkout -f`.
+*   Always use safe git operations that preserve history.
+*   **⚠️ NEVER MERGE PULL REQUESTS WITHOUT EXPLICIT USER PERMISSION**
+*   **Never use `gh pr merge` unless explicitly instructed by the user**
+
+#### File Operations
+*   Never use `rm -rf` - use `rm -i` for interactive confirmation.
+*   Always confirm before deleting files.
+
+### Development Workflows
+
+#### Creating Issues
+When starting a new feature or bug fix:
+
+```bash
+# 1. Update main branch
+git checkout main && git pull
+
+# 2. Create a detailed issue
+gh issue create --title "feat: Descriptive title" --body "$(cat <<'EOF'
+## Overview
+Brief description of the feature/bug.
+
+## Current State
+What exists now.
+
+## Proposed Solution
+What should be implemented.
+EOF
+)"
+```
+
+#### Standard Development Flow
+1.  **Create Branch:** `git checkout -b feat/issue-number-description`
+2.  **Make Changes:** Implement features.
+3.  **Test:** Verify changes.
+4.  **Commit:** `git commit -m "feat: description ... Closes #issue"`
+5.  **Push:** `git push -u origin branch-name`
+6.  **Create PR:** `gh pr create`
+7.  **Wait:** Do not merge yourself.
+
+### Context Management & Short Codes
+
+#### `ccc` - Create Context & Compact
+**Purpose:** Save the current session state and context to forward to another task.
+1.  Gather Information: `git status`, `git log`
+2.  Create GitHub Context Issue.
+3.  Compact Conversation.
+
+#### `nnn` - Next Task Planning
+**Purpose:** Create a comprehensive implementation plan based on gathered context. **NO CODING** - only research and planning.
+1.  Check for Recent Context.
+2.  Gather All Context.
+3.  Deep Analysis.
+4.  Create Comprehensive Plan Issue.
+
+#### `rrr` - Retrospective
+**Purpose:** Document the session's activities, learnings, and outcomes.
+**MANDATORY:** AI Diary and Honest Feedback sections.
+
+**Step 1: Gather Session Data**
+`git diff --name-only main...HEAD`, `git log --oneline main...HEAD`
+
+**Step 2: Create Retrospective Document**
+(See template in full CLAUDE.md)
+
+**Time Zone Note:**
+*   **PRIMARY TIME ZONE: GMT+7 (Bangkok time)**
+*   Always show GMT+7 time first.
 
 ---
 
 ## 🇹🇭 Thai Version (เวอร์ชันภาษาไทย)
 
-### 1. บทสรุปผู้บริหาร (Executive Summary)
-ส่วนนี้คือคู่มือสำหรับ AI Assistant เพื่อกำหนดขั้นตอนการทำงาน (Workflows), กฎความปลอดภัย, และการจัดการบริบท (Context) เพื่อให้การทำงานร่วมกันมีประสิทธิภาพสูงสุด
+### บทสรุปผู้บริหาร (Executive Summary)
+เอกสารนี้ระบุแนวทางปฏิบัติที่ครอบคลุมสำหรับ AI Assistant ในการทำงานพัฒนาซอฟต์แวร์ เพื่อให้มั่นใจว่ากระบวนการทำงานนั้นปลอดภัย มีประสิทธิภาพ และมีการบันทึกข้อมูลอย่างเป็นระบบ
 
-### 2. กฎความปลอดภัยที่สำคัญ 🔴
-*   **การใช้คำสั่ง:** ห้ามใช้ flag `-f` หรือ `--force` เด็ดขาด และต้องอธิบายคำสั่งที่ส่งผลกระทบต่อระบบก่อนเสมอ
-*   **การจัดการ Git:** ห้ามใช้ `git push --force` และห้ามรวม (Merge) Pull Request โดยไม่ได้รับอนุญาตจากผู้ใช้
-*   **ไฟล์:** ต้องยืนยันกับผู้ใช้ก่อนทำการลบไฟล์ (`rm`) เสมอ
+#### หน้าที่ความรับผิดชอบหลัก
+*   พัฒนาและติดตั้งระบบ (Implementation)
+*   ทดสอบและประกันคุณภาพ (QA)
+*   จัดทำเอกสารและทบทวนการทำงาน (Retrospective)
+*   ปฏิบัติตามขั้นตอนที่ปลอดภัยและมีประสิทธิภาพ
+*   รักษาบริบทและประวัติของโครงการ
 
-### 3. ขั้นตอนการทำงานของ AI (Short Codes)
-ใช้รหัสย่อเหล่านี้เพื่อความรวดเร็วในการสั่งงาน:
+### ข้อมูลอ้างอิงด่วน - รหัสย่อ (Short Codes)
 
-*   **`ccc` (สร้างบริบท/Context):**
-    *   รวบรวมสถานะของ Git และ Log ล่าสุด
-    *   บันทึกสถานะปัจจุบันของเซสชันไว้ เพื่อกันลืมหรือส่งต่องาน
-*   **`nnn` (วางแผนถัดไป):**
-    *   วิเคราะห์บริบทปัจจุบัน
-    *   สร้างแผนงานละเอียดสำหรับงานต่อไป (เน้นวิเคราะห์และวางแผน ยังไม่เริ่มเขียนโค้ด)
-*   **`lll` (ดูสถานะ):**
-    *   แสดงไฟล์ที่เปิดอยู่, สถานะ Git, และการเปลี่ยนแปลงล่าสุด
-*   **`rrr` (ทบทวนงาน/Retrospective):**
-    *   บันทึกสิ่งที่ทำไป (Diary), ให้ฟีดแบ็คตามตรง (Honest Feedback), และอัปเดตบทเรียนที่ได้รับ
-    *   *ข้อบังคับ:* ต้องมีหัวข้อ "AI Diary" และ "Honest Feedback" เสมอ
+#### ขั้นตอนการวางแผนและบริบท (รูปแบบหลัก)
+*   `ccc` - สร้าง Issue บริบท (Context) และบีบอัดบทสนทนา
+*   `nnn` - การวางแผนอัจฉริยะ: รัน `ccc` อัตโนมัติถ้าไม่มีบริบทล่าสุด → สร้างแผนการทำงานโดยละเอียด
+*   `gogogo` - ลงมือทำตามแผนงานล่าสุดทีละขั้นตอน
+*   `lll` - แสดงสถานะโครงการ (Issues, PRs, Commits) ✅
 
-### 4. การจัดการบริบท (Context Management)
-*   **รูปแบบ 2 Issues:** แยก "การบันทึกบริบท" (`ccc`) ออกจาก "งานที่ต้องทำ" (`nnn`) เพื่อความเป็นระเบียบ
-*   **บริบทโครงการ:** AI ต้องอ่านส่วน "Project Documentation" (ส่วนที่ 1) ก่อนเสมอ เพื่อให้เข้าใจเป้าหมายของงาน
+#### การบริหารจัดการโครงการ
+*   `rrr` - สร้างเอกสารทบทวนเซสชัน (Retrospective) โดยละเอียด
+
+### 🔴 กฎความปลอดภัยที่สำคัญ (Critical Safety Rules)
+
+#### การใช้ Repository
+*   **ห้ามสร้าง Issues/PRs บนต้นน้ำ (Upstream) โดยเด็ดขาด**
+
+#### การใช้คำสั่ง (Command Usage)
+*   **ห้ามใช้ flag `-f` หรือ `--force` กับคำสั่งใดๆ เด็ดขาด**
+*   ใช้ตัวเลือกที่ปลอดภัยและไม่ทำลายข้อมูลเสมอ
+*   หากคำสั่งต้องการการยืนยัน ให้จัดการอย่างเหมาะสมโดยไม่บังคับ (Force)
+
+#### การจัดการ Git
+*   ห้ามใช้ `git push --force` หรือ `git push -f`
+*   ห้ามใช้ `git checkout -f`
+*   **⚠️ ห้ามรวม (MERGE) PULL REQUEST โดยไม่ได้รับอนุญาตจากผู้ใช้**
+*   **ห้ามใช้ `gh pr merge` จนกว่าจะได้รับคำสั่งชัดเจน**
+
+#### การจัดการไฟล์
+*   ห้ามใช้ `rm -rf` - ให้ใช้ `rm -i` เพื่อยืนยันการลบเสมอ
+*   ต้องยืนยันกับผู้ใช้ก่อนทำการลบไฟล์
+
+### ขั้นตอนการพัฒนา (Development Workflows)
+
+#### การสร้าง Issues
+เมื่อเริ่มฟีเจอร์ใหม่หรือแก้บั๊ก:
+
+```bash
+# 1. อัปเดตสาขาหลัก
+git checkout main && git pull
+
+# 2. สร้าง Issue พร้อมรายละเอียด
+gh issue create --title "feat: หัวข้ออธิบายงาน" --body "$(cat <<'EOF'
+## Overview (ภาพรวม)
+คำอธิบายสั้นๆ เกี่ยวกับฟีเจอร์หรือบั๊ก
+
+## Current State (สถานะปัจจุบัน)
+สิ่งที่มีอยู่ในตอนนี้
+
+## Proposed Solution (วิธีแก้ไขที่เสนอ)
+สิ่งที่ควรจะทำ
+EOF
+)"
+```
+
+#### กระบวนการพัฒนามาตรฐาน
+1.  **สร้าง Branch:** `git checkout -b feat/issue-number-description`
+2.  **แก้ไขงาน:** เขียนโค้ดตามแผน
+3.  **ทดสอบ:** ตรวจสอบความถูกต้อง
+4.  **Commit:** `git commit -m "feat: คำอธิบาย ... Closes #issue"`
+5.  **Push:** `git push -u origin branch-name`
+6.  **สร้าง PR:** `gh pr create`
+7.  **รอ:** ห้าม Merge เอง ให้ผู้ใช้เป็นคนกดหรือสั่ง
+
+### การจัดการบริบทและรหัสย่อ (Context & Short Codes)
+
+#### `ccc` - สร้างบริบทและบีบอัด (Create Context & Compact)
+**วัตถุประสงค์:** บันทึกสถานะปัจจุบันของเซสชันเพื่อส่งต่องาน
+1.  รวบรวมข้อมูล: `git status`, `git log`
+2.  สร้าง GitHub Context Issue
+3.  บีบอัดบทสนทนา (Compact Conversation)
+
+#### `nnn` - วางแผนงานถัดไป (Next Task Planning)
+**วัตถุประสงค์:** สร้างแผนงานละเอียดจากบริบทที่มี **ห้ามเขียนโค้ด** - เน้นการวิจัยและวางแผนเท่านั้น
+1.  ตรวจสอบบริบทล่าสุด
+2.  รวบรวมข้อมูลทั้งหมด
+3.  วิเคราะห์เชิงลึก
+4.  สร้าง Issue แผนงานที่ครอบคลุม
+
+#### `rrr` - การทบทวนงาน (Retrospective)
+**วัตถุประสงค์:** บันทึกกิจกรรม สิ่งที่ได้เรียนรู้ และผลลัพธ์ของเซสชัน
+**ข้อบังคับ:** ต้องมีส่วน "AI Diary" (บันทึกของ AI) และ "Honest Feedback" (ความเห็นตรงไปตรงมา)
+
+**ขั้นตอนที่ 1: รวบรวมข้อมูล**
+`git diff --name-only main...HEAD`, `git log --oneline main...HEAD`
+
+**ขั้นตอนที่ 2: สร้างเอกสาร Retrospective**
+(ใช้เทมเพลตมาตรฐานที่ระบุในส่วนภาษาอังกฤษ)
+
+**หมายเหตุเรื่องโซนเวลา:**
+*   **โซนเวลาหลัก: GMT+7 (เวลาประเทศไทย)**
+*   ให้แสดงเวลา GMT+7 เป็นอันดับแรกเสมอ
