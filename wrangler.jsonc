@@ -1,0 +1,7 @@
+{
+  "name": "whac-a-mole",
+  "compatibility_date": "2025-12-26",
+  "assets": {
+    "directory": "."
+  }
+}
