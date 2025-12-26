@@ -4,14 +4,23 @@ const highScoreBoard = document.querySelector('.high-score');
 const timeLeftDisplay = document.querySelector('.time-left');
 const moles = document.querySelectorAll('.mole');
 const startBtn = document.querySelector('#start-btn');
+const muteBtn = document.querySelector('#mute-btn');
+const whackSound = document.querySelector('#whack-sound');
+const gameOverSound = document.querySelector('#game-over-sound');
 let lastHole;
 let timeUp = false;
 let score = 0;
 let countdown;
 let gameTime = 30; // seconds
 let highScore = localStorage.getItem('whacAMoleHighScore') || 0;
+let isMuted = false;
 
 highScoreBoard.textContent = highScore;
+
+function toggleMute() {
+    isMuted = !isMuted;
+    muteBtn.textContent = isMuted ? 'Unmute' : 'Mute';
+}
 
 function randomTime(min, max) {
     return Math.round(Math.random() * (max - min) + min);
@@ -55,6 +64,7 @@ function startGame() {
             timeUp = true;
             startBtn.disabled = false;
             checkHighScore();
+            if (!isMuted) gameOverSound.play();
             alert('Game Over! Your score: ' + score);
         }
     }, 1000);
@@ -71,6 +81,10 @@ function checkHighScore() {
 function bonk(e) {
     if(!e.isTrusted) return; // cheater!
     score++;
+    if (!isMuted) {
+        whackSound.currentTime = 0;
+        whackSound.play();
+    }
     this.parentNode.classList.remove('up');
     scoreBoard.textContent = score;
 }

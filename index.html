@@ -12,7 +12,10 @@
     <h1>Whac-A-Mole! <span class="score">0</span></h1>
     <h2>High Score: <span class="high-score">0</span></h2>
     <h2>Time Left: <span class="time-left">30</span>s</h2>
-    <button id="start-btn" onClick="startGame()">Start Game</button>
+    <div class="controls">
+        <button id="start-btn" onClick="startGame()">Start Game</button>
+        <button id="mute-btn" onClick="toggleMute()">Mute</button>
+    </div>
 
     <div class="game">
         <div class="hole hole1">
@@ -45,5 +48,7 @@
     </div>
 
     <script src="script.js"></script>
+    <audio id="whack-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+    <audio id="game-over-sound" src="https://assets.mixkit.co/active_storage/sfx/2596/2596-preview.mp3"></audio>
 </body>
 </html>
