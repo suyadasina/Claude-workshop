@@ -55,6 +55,13 @@ button:active {
     box-shadow: 0 0 #fbc02d;
 }
 
+button:disabled {
+    background-color: #e0e0e0;
+    box-shadow: 0 4px #bdbdbd;
+    cursor: not-allowed;
+    color: #9e9e9e;
+}
+
 .game {
   width: 600px;
   height: 600px;
