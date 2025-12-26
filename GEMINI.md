@@ -173,6 +173,38 @@ EOF
 *   **PRIMARY TIME ZONE: GMT+7 (Bangkok time)**
 *   Always show GMT+7 time first.
 
+### Development Practices
+
+#### Code Standards
+*   Follow the established style guide for the language/framework.
+*   Enable strict mode and linting where possible.
+*   Write clear, self-documenting code and add comments where necessary.
+*   Avoid `any` or other weak types in strongly-typed languages.
+
+#### Git Commit Format
+```
+[type]: [brief description]
+
+- What: [specific changes]
+- Why: [motivation]
+- Impact: [affected areas]
+
+Closes #[issue-number]
+```
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+#### Error Handling Patterns
+*   Use `try/catch` blocks for operations that might fail.
+*   Provide descriptive error messages.
+*   Implement graceful fallbacks in the UI.
+*   Use custom error types where appropriate.
+
+### Troubleshooting
+
+#### Common Issues
+*   **Build Failures:** Check for type errors, clear cache (`rm -rf node_modules`), reinstall dependencies.
+*   **Port Conflicts:** Use `lsof -i :[port]` to find processes and `kill -9 [PID]` to stop them.
+
 ---
 
 ## 🇹🇭 Thai Version (เวอร์ชันภาษาไทย)
@@ -278,6 +310,37 @@ EOF
 **หมายเหตุเรื่องโซนเวลา:**
 *   **โซนเวลาหลัก: GMT+7 (เวลาประเทศไทย)**
 *   ให้แสดงเวลา GMT+7 เป็นอันดับแรกเสมอ
+
+### แนวทางปฏิบัติในการพัฒนา (Development Practices)
+
+#### มาตรฐานโค้ด (Code Standards)
+*   ปฏิบัติตาม Style Guide ของภาษา/Framework ที่ใช้
+*   เปิดใช้งาน Strict Mode และ Linting เท่าที่เป็นไปได้
+*   เขียนโค้ดที่อ่านเข้าใจง่าย (Self-documenting) และเพิ่มคอมเมนต์เท่าที่จำเป็น
+*   หลีกเลี่ยงการใช้ `any` หรือ type ที่ไม่ระบุชัดเจนในภาษาที่มีการกำหนด type
+
+#### รูปแบบการ Commit (Git Commit Format)
+```
+[type]: [brief description]
+
+- What: [specific changes]
+- Why: [motivation]
+- Impact: [affected areas]
+
+Closes #[issue-number]
+```
+**ประเภท (Types)**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+#### รูปแบบการจัดการข้อผิดพลาด (Error Handling Patterns)
+*   ใช้ `try/catch` สำหรับการทำงานที่อาจเกิดข้อผิดพลาด
+*   ระบุข้อความแจ้งข้อผิดพลาดที่ชัดเจนและสื่อความหมาย
+*   เตรียมแผนรองรับ (Graceful Fallback) ใน UI หากเกิดข้อผิดพลาด
+
+### การแก้ไขปัญหาเบื้องต้น (Troubleshooting)
+
+#### ปัญหาทั่วไป
+*   **Build ไม่ผ่าน:** ตรวจสอบ Type error, ลบ Cache (`rm -rf node_modules`), ติดตั้ง Dependencies ใหม่
+*   **พอร์ตชนกัน (Port Conflicts):** ใช้ `lsof -i :[port]` เพื่อหา Process และ `kill -9 [PID]` เพื่อหยุดการทำงาน
 
 ---
 
