@@ -2,6 +2,7 @@ const holes = document.querySelectorAll('.hole');
 const scoreBoard = document.querySelector('.score');
 const timeLeftDisplay = document.querySelector('.time-left');
 const moles = document.querySelectorAll('.mole');
+const startBtn = document.querySelector('#start-btn');
 let lastHole;
 let timeUp = false;
 let score = 0;
@@ -34,6 +35,7 @@ function peep() {
 
 function startGame() {
     if (countdown) clearInterval(countdown);
+    startBtn.disabled = true;
     scoreBoard.textContent = 0;
     timeLeftDisplay.textContent = gameTime;
     timeUp = false;
@@ -47,6 +49,7 @@ function startGame() {
         if (timeLeft <= 0) {
             clearInterval(countdown);
             timeUp = true;
+            startBtn.disabled = false;
             alert('Game Over! Your score: ' + score);
         }
     }, 1000);
